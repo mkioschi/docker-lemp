@@ -1,6 +1,6 @@
 # Docker LEMP
 
-Ambiente LEMP usando Docker. Utilizando Nginx, PHP-7.2, Mysql e PHPMyAdmin.
+Ambiente LEMP usando Docker. Utilizando Nginx, PHP-7.1, Mysql e PHPMyAdmin.
 
 ## Visão Geral
 
