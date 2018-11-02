@@ -1,0 +1,52 @@
+version: '3'
+services:
+    nginx:
+        container_name: nginx
+        build:
+            context: ./etc/nginx
+            dockerfile: Dockerfile
+        ports:
+            - "80:80"
+        restart: always
+        volumes:
+            - ./src/public:/var/www/html
+            - ./etc/nginx/logs/:/var/log/nginx/
+            - ./etc/nginx/sites-enabled/:/etc/nginx/conf.d/
+        depends_on:
+            - php-fpm
+            - mysql
+    php-fpm:
+        container_name: php-fpm
+        build:
+            context: ./etc/php-fpm
+            dockerfile: Dockerfile
+        expose:
+            - "9000"
+        restart: always
+        volumes:
+            - ./src/public:/var/www/html
+    mysql:
+        container_name: mysql
+        build:
+            context: ./etc/mysql
+            dockerfile: Dockerfile
+        ports:
+            - "3306:3306"
+        restart: always
+        volumes:
+            - ./data/mysql:/var/lib/mysql
+        environment:
+            MYSQL_ROOT_PASSWORD: root
+    phpmyadmin:
+        container_name: phpmyadmin
+        build:
+            context: ./etc/phpmyadmin
+            dockerfile: Dockerfile
+        ports:
+            - "8080:80"
+        restart: always
+        depends_on:
+            - mysql
+        environment:
+            PMA_ARBITRARY: 1
+            PMA_HOST: mysql
