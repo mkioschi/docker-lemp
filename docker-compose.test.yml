@@ -13,6 +13,8 @@ services:
       - ./:/var/www/app/public
     restart: on-failure
     tty: true
+    depends_on:
+      - php
 
   mysql:
     container_name: mysql
