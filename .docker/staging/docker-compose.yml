@@ -1,0 +1,35 @@
+version: "3.5"
+
+services:
+  mysql:
+    container_name: mysql
+    build:
+        context: ../../
+        dockerfile: .docker/staging/mysql/Dockerfile
+    ports:
+        - "3306:3306"
+    restart: on-failure
+    volumes:
+        - ./mysql/data:/var/lib/mysql
+    environment:
+        MYSQL_DATABASE: ${MYSQL_DATABASE}
+        MYSQL_USER: ${MYSQL_USER}
+        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+
+  php:
+    container_name: php
+    build:
+      context: ../../
+      dockerfile: .docker/staging/php7.4/Dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    working_dir: /var/www/app
+    volumes:
+      - ../../app:/var/www/app
+    env_file: .env
+    restart: on-failure
+    tty: true
+    links:
+      - mysql

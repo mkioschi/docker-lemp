@@ -1,0 +1,18 @@
+version: "3.5"
+
+services:
+  php:
+    container_name: php
+    build:
+      context: ../../
+      dockerfile: .docker/production/php7.4/Dockerfile
+      args:
+        UID: ${UID}
+        GID: ${GID}
+    working_dir: /var/www/app
+    volumes:
+      - ../../app:/var/www/app
+    env_file: .env
+    restart: on-failure
+    tty: true
+
