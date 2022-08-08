@@ -4,13 +4,14 @@ services:
   nginx:
     container_name: nginx
     build:
-      context: ./.docker/nginx
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: .docker/development/nginx/Dockerfile
     ports:
-      - "8000:80"
+      - "80:80"
     volumes:
-      - ./.docker/nginx/logs/:/var/log/server/
-      - ./app:/var/www/app
+      - ./nginx/logs/:/var/log/server/
+      - ./nginx/sites-enabled/:/etc/nginx/sites-enabled/
+      - ../../app:/var/www/app
     restart: on-failure
     tty: true
     depends_on:
@@ -19,13 +20,13 @@ services:
   mysql:
     container_name: mysql
     build:
-        context: ./.docker/mysql
-        dockerfile: Dockerfile
+        context: ../../
+        dockerfile: .docker/development/mysql/Dockerfile
     ports:
         - "3306:3306"
     restart: on-failure
     volumes:
-        - ./.docker/mysql/data:/var/lib/mysql
+        - ./mysql/data:/var/lib/mysql
     environment:
         MYSQL_DATABASE: ${MYSQL_DATABASE}
         MYSQL_USER: ${MYSQL_USER}
@@ -35,15 +36,14 @@ services:
   php:
     container_name: php
     build:
-      context: .docker/php7.4
-      dockerfile: Dockerfile
+      context: ../../
+      dockerfile: .docker/development/php7.4/Dockerfile
       args:
-        DOCKER_ENV: ${APP_ENV}
         UID: ${UID}
         GID: ${GID}
     working_dir: /var/www/app
     volumes:
-      - ./app:/var/www/app
+      - ../../app:/var/www/app
     env_file: .env
     restart: on-failure
     tty: true

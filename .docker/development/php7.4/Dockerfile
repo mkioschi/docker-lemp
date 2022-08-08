@@ -1,12 +1,10 @@
 FROM php:7.4-fpm
 
-ARG DOCKER_ENV
 ARG UID
 ARG GID
 
 ENV DEBIAN_FRONTEND noninteractive
 ENV TERM            xterm-color
-ENV DOCKER_ENV      ${DOCKER_ENV}
 
 RUN apt-get update \
     && apt-get install -y --no-install-recommends \
@@ -50,7 +48,7 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY conf.d/*.${DOCKER_ENV}.ini /usr/local/etc/php/conf.d/
+COPY .docker/development/php7.4/conf.d/*.ini /usr/local/etc/php/conf.d/
 
 RUN chown -R www-data:www-data /var/www
 
