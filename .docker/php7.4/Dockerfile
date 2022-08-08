@@ -48,7 +48,7 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
 
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY .docker/development/php7.4/conf.d/*.ini /usr/local/etc/php/conf.d/
+COPY .docker/php7.4/conf.d/*.ini /usr/local/etc/php/conf.d/
 
 RUN chown -R www-data:www-data /var/www
 

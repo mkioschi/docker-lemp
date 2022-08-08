@@ -1,4 +1,3 @@
 .env
-/development/mysql/data
-/development/nginx/logs
-/staging/mysql/data
+/mysql/data
+/nginx/logs

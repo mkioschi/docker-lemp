@@ -10,29 +10,17 @@ RC=\033[0m
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 # │ Infra commands                                                              │
 # └─────────────────────────────────────────────────────────────────────────────┘
-.PHONY: start-development
-start-development:
-	@docker-compose -f .docker/development/docker-compose.yml --env-file .docker/development/.env up -d
+.PHONY: start
+start:
+	@docker-compose -f .docker/docker-compose.yml --env-file .docker/.env up -d
 
-.PHONY: stop-development
-stop-development:
-	@docker-compose -f .docker/development/docker-compose.yml --env-file .docker/development/.env down
+.PHONY: stop
+stop:
+	@docker-compose -f .docker/docker-compose.yml --env-file .docker/.env down
 
-.PHONY: build-development
-build-development:
-	@docker-compose -f .docker/development/docker-compose.yml --env-file .docker/development/.env build
-
-.PHONY: start-staging
-start-staging:
-	@docker-compose -f .docker/staging/docker-compose.yml --env-file .docker/staging/.env up -d
-
-.PHONY: stop-staging
-stop-staging:
-	@docker-compose -f .docker/staging/docker-compose.yml --env-file .docker/staging/.env down
-
-.PHONY: build-staging
-build-staging:
-	@docker-compose -f .docker/staging/docker-compose.yml --env-file .docker/staging/.env build
+.PHONY: build
+build:
+	@docker-compose -f .docker/docker-compose.yml --env-file .docker/.env build
 
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 # │ Help                                                                        │
@@ -44,7 +32,6 @@ help:
 	@echo ""
 	@echo "${CY}Infra commands:${RC}"
 	@echo "${CG}   build               ${RC}Build all containers"
-	@echo "${CG}   clear-logs          ${RC}Clear application logs"
-	@echo "${CG}   down                ${RC}Stop all containers"
-	@echo "${CG}   up                  ${RC}Start all containers"
+	@echo "${CG}   start               ${RC}Start all containers"
+	@echo "${CG}   stop                ${RC}Stop all containers"
 	@echo ""
