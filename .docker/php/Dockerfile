@@ -1,4 +1,4 @@
-FROM php:7.4-fpm
+FROM php:8.1-fpm
 
 ARG UID
 ARG GID
@@ -45,10 +45,9 @@ RUN chmod uga+x /usr/local/bin/install-php-extensions && sync && \
     exif \
     zip
 
-
 RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
 
-COPY .docker/php7.4/conf.d/*.ini /usr/local/etc/php/conf.d/
+COPY .docker/php/conf.d/*.ini /usr/local/etc/php/conf.d/
 
 RUN chown -R www-data:www-data /var/www
 

@@ -1,0 +1,7 @@
+.env
+
+/.docker/mysql/data
+/.docker/nginx/logs
+
+/public/*
+!/public/index.php

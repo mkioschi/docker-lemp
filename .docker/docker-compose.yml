@@ -9,9 +9,9 @@ services:
     ports:
       - "80:80"
     volumes:
-      - ./nginx/logs/:/var/log/server/
+      - ./nginx/logs/:/var/log/nginx/
       - ./nginx/sites-enabled/:/etc/nginx/sites-enabled/
-      - ../app:/var/www/app
+      - ../public:/var/www/app/public
     restart: on-failure
     tty: true
     depends_on:
@@ -20,30 +20,32 @@ services:
   mysql:
     container_name: mysql
     build:
-        context: ../
-        dockerfile: .docker/mysql/Dockerfile
+      context: ../
+      dockerfile: .docker/mysql/Dockerfile
     ports:
-        - "3306:3306"
+      - "3306:3306"
     restart: on-failure
     volumes:
-        - ./mysql/data:/var/lib/mysql
+      - ./mysql/data:/var/lib/mysql
     environment:
-        MYSQL_DATABASE: ${MYSQL_DATABASE}
-        MYSQL_USER: ${MYSQL_USER}
-        MYSQL_PASSWORD: ${MYSQL_PASSWORD}
-        MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
   php:
     container_name: php
     build:
       context: ../
-      dockerfile: .docker/php7.4/Dockerfile
+      dockerfile: .docker/php/Dockerfile
       args:
         UID: ${UID}
         GID: ${GID}
-    working_dir: /var/www/app
+    ports:
+      - "9000:9000"
+    working_dir: /var/www/app/public
     volumes:
-      - ../app:/var/www/app
+      - ../public:/var/www/app/public
     env_file: .env
     restart: on-failure
     tty: true

@@ -1,13 +1,4 @@
 # ┌─────────────────────────────────────────────────────────────────────────────┐
-# │ Colors definitions                                                          │
-# └─────────────────────────────────────────────────────────────────────────────┘
-CR=\033[0;31m
-CG=\033[0;32m
-CY=\033[0;33m
-CB=\033[0;36m
-RC=\033[0m
-
-# ┌─────────────────────────────────────────────────────────────────────────────┐
 # │ Infra commands                                                              │
 # └─────────────────────────────────────────────────────────────────────────────┘
 .PHONY: start
@@ -27,11 +18,11 @@ build:
 # └─────────────────────────────────────────────────────────────────────────────┘
 help:
 	@echo ""
-	@echo "${CY}Usage:${RC}"
-	@echo "   make ${CG}<command>${RC}"
+	@echo "Usage:"
+	@echo "    make <command>"
 	@echo ""
-	@echo "${CY}Infra commands:${RC}"
-	@echo "${CG}   build               ${RC}Build all containers"
-	@echo "${CG}   start               ${RC}Start all containers"
-	@echo "${CG}   stop                ${RC}Stop all containers"
+	@echo "Infra commands:"
+	@echo "    build               Build all containers"
+	@echo "    start               Start all containers"
+	@echo "    stop                Stop all containers"
 	@echo ""
