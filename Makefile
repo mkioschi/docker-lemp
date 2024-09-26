@@ -3,15 +3,15 @@
 # └─────────────────────────────────────────────────────────────────────────────┘
 .PHONY: start
 start:
-	@docker-compose -f .docker/docker-compose.yml --env-file .docker/.env up -d
+	@docker compose -f .docker/docker-compose.yml --env-file .docker/.env up -d
 
 .PHONY: stop
 stop:
-	@docker-compose -f .docker/docker-compose.yml --env-file .docker/.env down
+	@docker compose -f .docker/docker-compose.yml --env-file .docker/.env down
 
 .PHONY: build
 build:
-	@docker-compose -f .docker/docker-compose.yml --env-file .docker/.env build
+	@docker compose -f .docker/docker-compose.yml --env-file .docker/.env build
 
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 # │ Help                                                                        │
