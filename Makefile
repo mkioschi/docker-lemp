@@ -13,6 +13,10 @@ stop:
 build:
 	@docker compose -f .docker/docker-compose.yml --env-file .docker/.env build
 
+.PHONY: exec
+exec:
+	@docker exec -it php bash
+
 # ┌─────────────────────────────────────────────────────────────────────────────┐
 # │ Help                                                                        │
 # └─────────────────────────────────────────────────────────────────────────────┘
