@@ -1,6 +1,6 @@
 services:
-  nginx:
-    container_name: nginx
+  PROJECT_NAME_nginx:
+    container_name: PROJECT_NAME_nginx
     build:
       context: ../
       dockerfile: .docker/nginx/Dockerfile
@@ -13,10 +13,10 @@ services:
     restart: on-failure
     tty: true
     depends_on:
-      - php
+      - PROJECT_NAME_php
 
-  mysql:
-    container_name: mysql
+  PROJECT_NAME_mysql:
+    container_name: PROJECT_NAME_mysql
     build:
       context: ../
       dockerfile: .docker/mysql/Dockerfile
@@ -32,8 +32,8 @@ services:
       MYSQL_PASSWORD: ${MYSQL_PASSWORD}
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
 
-  php:
-    container_name: php
+  PROJECT_NAME_php:
+    container_name: PROJECT_NAME_php
     build:
       context: ../
       dockerfile: .docker/php/Dockerfile
@@ -49,5 +49,5 @@ services:
     tty: true
     environment:
       COMPOSER_MEMORY_LIMIT: ${COMPOSER_MEMORY_LIMIT}
-    links:
-      - mysql
+    depends_on:
+      - PROJECT_NAME_mysql
